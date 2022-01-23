@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pokemon {
+  id        Int       @id @default(autoincrement())
+  name      String @unique
+  owners    CatchedPokemons[]
+  seekers   Wishlist[]
+}
+
+model User {
+  id               Int       @id @default(autoincrement())
+  name             String @unique
+  pokemonsCatched  CatchedPokemons[]
+  pokemonsWishlist Wishlist[]
+}
+
+model CatchedPokemons {
+  pokemon       Pokemon     @relation(fields: [pokemonName], references: [name])
+  pokemonName   String
+  user          User @relation(fields: [userId], references: [id])
+  userId        Int
+  @@id([pokemonName, userId])
+}
+
+model Wishlist {
+  pokemon       Pokemon     @relation(fields: [pokemonName], references: [name])
+  pokemonName   String
+  user          User @relation(fields: [userId], references: [id])
+  userId        Int
+  @@id([pokemonName, userId])
+}
