@@ -3,13 +3,17 @@ import { CommonModule } from '@angular/common';
 import { AButtonComponent } from '../components/atoms/a-button/a-button.component';
 import { CHeaderComponent } from '../components/organisms/c-header/c-header.component';
 import { RouterModule } from '@angular/router';
+import { MPaginationComponent } from '../components/molecules/m-pagination/m-pagination.component';
+import { KebabCasePipe } from '../filters/kebab-case.pipe';
 
 
 
 @NgModule({
   declarations: [
     AButtonComponent,
-    CHeaderComponent
+    CHeaderComponent,
+    MPaginationComponent,
+    KebabCasePipe
   ],
   imports: [
     CommonModule,
@@ -17,7 +21,9 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [
     AButtonComponent,
-    CHeaderComponent
+    CHeaderComponent,
+    MPaginationComponent,
+    KebabCasePipe
   ]
 })
 export class SharedModule { }

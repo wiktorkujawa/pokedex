@@ -1,0 +1,20 @@
+<div class="container flex justify-center mx-auto my-4">
+  <ul class="flex">
+      <li><button
+        (click)="prevPage()"
+              class="h-10 px-5 text-gray-600 bg-white border border-r-0 border-gray-600 hover:bg-gray-100">Prev</button>
+      </li>
+      <li><a-button (click)="changePage(page>3? page-2:  1)" [isActive]="page==1 ? true : false" variant="pagination">{{page>3? page-2:  1}}</a-button>
+      </li>
+      <li><a-button (click)="changePage(page>3? page - 1: 2)" [isActive]="page==2 ? true : false" variant="pagination">{{page>3? page - 1: 2}}</a-button>
+      </li>
+      <li><a-button (click)="changePage(page>3? page: 3)" [isActive]="page<3 ? false : true" variant="pagination">{{page>3? page: 3}}</a-button>
+      </li>
+      <li class="hidden md:block"><a-button (click)="changePage(page>3? page + 1: 4)" variant="pagination">{{page>3? page + 1: 4}}</a-button>
+      </li>
+      <li class="hidden md:block"><a-button (click)="changePage(page>3? page + 2: 5)" variant="pagination">{{page>3? page + 2: 5}}</a-button>
+      </li>
+      <li><button (click)="nextPage()" class="h-10 px-5 text-gray-600 bg-white border border-gray-600 hover:bg-gray-100">Next</button>
+      </li>
+  </ul>
+</div>

@@ -10,34 +10,31 @@
           Image
         </span>
       </th>
+      <th class='border-2 uppercase'>
+        <h2 class='mx-6'>Stats </h2>  
+      </th>
     </tr>
     </thead>
     <tbody>
       <tr *ngFor="let pokemon of (pokemons$ | async); trackBy: trackByName">
-        <td class="border-2">{{(pokemon | async)?.name}}</td>
-        <td class="border-2"> <img [src]="(pokemon | async)?.sprites?.front_default"/></td>
+        <td class="border-2 text-center capitalize">{{(pokemon | async)?.name}}</td>
+        <td class="border-2"> 
+          <div>
+            <img class="mx-auto block" [src]="(pokemon | async)?.sprites?.front_default"/>
+          </div>
+        </td>
+
+        <td class="border-2 px-4">
+          <ul class="mx-auto grid md:grid-cols-2 grid-cols-1">
+            <li class="flex" *ngFor="let stats of (pokemon | async)?.stats">
+              <h2 class="capitalize font-bold">{{stats?.stat?.name | kebabCase}}</h2>: <p>{{stats?.base_stat}}</p>
+            </li>
+          </ul>
+        </td>
       </tr>
     </tbody>
   </table>
 
-  <div class="container flex justify-center mx-auto my-4">
-    <ul class="flex">
-        <li><button
-          (click)="prevPage()"
-                class="h-10 px-5 text-gray-600 bg-white border border-r-0 border-gray-600 hover:bg-gray-100">Prev</button>
-        </li>
-        <li><a-button (click)="changePage(page>3? page-2:  1)" [isActive]="page==1 ? true : false" variant="pagination">{{page>3? page-2:  1}}</a-button>
-        </li>
-        <li><a-button (click)="changePage(page>3? page - 1: 2)" [isActive]="page==2 ? true : false" variant="pagination">{{page>3? page - 1: 2}}</a-button>
-        </li>
-        <li><a-button (click)="changePage(page>3? page: 3)" [isActive]="page<3 ? false : true" variant="pagination">{{page>3? page: 3}}</a-button>
-        </li>
-        <li class="hidden md:block"><a-button (click)="changePage(page>3? page + 1: 4)" variant="pagination">{{page>3? page + 1: 4}}</a-button>
-        </li>
-        <li class="hidden md:block"><a-button (click)="changePage(page>3? page + 2: 5)" variant="pagination">{{page>3? page + 2: 5}}</a-button>
-        </li>
-        <li><button (click)="nextPage()" class="h-10 px-5 text-gray-600 bg-white border border-gray-600 hover:bg-gray-100">Next</button>
-        </li>
-    </ul>
-</div>
+  <m-pagination [limit]="5" [offset]="0" (pageChanged)='pageChanged($event)' ></m-pagination>
+
 </section>
