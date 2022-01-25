@@ -1,0 +1,7 @@
+.a-button__pagination {
+  @apply h-10 px-5 text-gray-600 bg-white border border-r-0 border-gray-600 hover:bg-gray-100;
+}
+
+.a-button__pagination-active {
+  @apply h-10 px-5 text-white bg-gray-600 border border-r-0 border-gray-600;
+}
