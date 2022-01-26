@@ -4,7 +4,6 @@ import crypto from 'crypto'
 import bcrypt from 'bcryptjs'
 import passport from 'passport';
 require('../modules/passport/local')(passport);
-require('../modules/passport/google')(passport);
 
 const { user, pokemon } = new PrismaClient();
 const router = Router();
