@@ -47,7 +47,10 @@ module.exports = {
         'coral-red': '#ed5363',
         'coral-red-hover': '#be3947',
         'dark-slate': '#2e2f36'
-      }
+      },
+      borderWidth: {
+        1: '1px'
+      },
     }
   },
   variants: {

@@ -1,20 +1,48 @@
-<div class="container flex justify-center mx-auto my-4">
+<div class="container flex justify-center mx-auto my-4 sm:flex-row flex-col">
   <ul class="flex">
-      <li><button
-        (click)="prevPage()"
-              class="h-10 px-5 text-gray-600 bg-white border border-r-0 border-gray-600 hover:bg-gray-100">Prev</button>
+    <li class="relative">
+      <a-button 
+        variant="pagination"
+        [disabled]="page<6" 
+        (click)="prevPage(5)">
+        <svg-icon class="absolute w-full right-0 top-0 p-2" src="/assets/svg/chevron-double-left.svg"></svg-icon>
+      </a-button>
+    </li>
+      <li class="relative">
+        <a-button
+          [disabled]="page<2"
+          variant="pagination"
+          (click)="prevPage(1)">
+          <svg-icon class="absolute w-full left-0 top-0 p-2" src="/assets/svg/chevron-left.svg"></svg-icon>
+        </a-button>
       </li>
-      <li><a-button (click)="changePage(page>3? page-2:  1)" [isActive]="page==1 ? true : false" variant="pagination">{{page>3? page-2:  1}}</a-button>
+      <li><a-button (click)="changePage(page>3? page-2:  1)" [isActive]="page==1" variant="pagination">{{page>3? page-2:  1}}</a-button>
       </li>
-      <li><a-button (click)="changePage(page>3? page - 1: 2)" [isActive]="page==2 ? true : false" variant="pagination">{{page>3? page - 1: 2}}</a-button>
+      <li><a-button (click)="changePage(page>3? page - 1: 2)" [isActive]="page==2" variant="pagination">{{page>3? page - 1: 2}}</a-button>
       </li>
-      <li><a-button (click)="changePage(page>3? page: 3)" [isActive]="page<3 ? false : true" variant="pagination">{{page>3? page: 3}}</a-button>
+      <li><a-button (click)="changePage(page>3? page: 3)" [isActive]="page>=3" variant="pagination">{{page>3? page: 3}}</a-button>
       </li>
       <li class="hidden md:block"><a-button (click)="changePage(page>3? page + 1: 4)" variant="pagination">{{page>3? page + 1: 4}}</a-button>
       </li>
       <li class="hidden md:block"><a-button (click)="changePage(page>3? page + 2: 5)" variant="pagination">{{page>3? page + 2: 5}}</a-button>
       </li>
-      <li><button (click)="nextPage()" class="h-10 px-5 text-gray-600 bg-white border border-gray-600 hover:bg-gray-100">Next</button>
+      <li class="relative">
+        <a-button 
+          variant="pagination" 
+          (click)="nextPage(1)">
+          <svg-icon class="absolute w-full right-0 top-0 p-2" src="/assets/svg/chevron-right.svg"></svg-icon>
+        </a-button>
+      </li>
+      <li class="relative border-r-1 border-gray-600">
+        <a-button 
+          variant="pagination" 
+          (click)="nextPage(5)">
+          <svg-icon class="absolute w-full right-0 top-0 p-2" src="/assets/svg/chevron-double-right.svg"></svg-icon>
+        </a-button>
       </li>
   </ul>
+ 
+  <select (change)="changeLimit($event?.target)" class="px-4 sm:py-0 py-2 sm:ml-auto mt-2 sm:mt-0">
+    <option *ngFor="let limits of selectLimit" [value]="limits">{{limits}}</option>
+  </select>
 </div>

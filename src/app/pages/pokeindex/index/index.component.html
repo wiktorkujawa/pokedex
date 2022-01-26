@@ -6,14 +6,15 @@
           <h2 class='mx-6'>Name </h2>  
         </th>
         <th class='border-2 uppercase'>
-        <span class='flex justify-center'>
-          Image
-        </span>
-      </th>
-      <th class='border-2 uppercase'>
-        <h2 class='mx-6'>Stats </h2>  
-      </th>
-    </tr>
+          <h2 class='mx-6'>Image </h2>  
+        </th>
+        <th class='border-2 uppercase'>
+          <h2 class='mx-6'>Stats </h2>  
+        </th>
+        <th class='border-2 uppercase'>
+          <h2 class='mx-6'>Actions </h2>  
+        </th>
+      </tr>
     </thead>
     <tbody>
       <tr *ngFor="let pokemon of (pokemons$ | async); trackBy: trackByName">
@@ -31,10 +32,15 @@
             </li>
           </ul>
         </td>
+
+        <td class="border-2 text-center capitalize">
+          <button>Add to wishlist</button> <br>
+          <button>Catch Pokemon</button>
+        </td>
       </tr>
     </tbody>
   </table>
 
-  <m-pagination [limit]="5" [offset]="0" (pageChanged)='pageChanged($event)' ></m-pagination>
+  <m-pagination [limit]="startLimit" [selectLimit]="selectLimit" [offset]="startOffset" (pageChanged)='pageChanged($event)' ></m-pagination>
 
 </section>

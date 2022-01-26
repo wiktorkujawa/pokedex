@@ -5,6 +5,7 @@ import { CHeaderComponent } from '../components/organisms/c-header/c-header.comp
 import { RouterModule } from '@angular/router';
 import { MPaginationComponent } from '../components/molecules/m-pagination/m-pagination.component';
 import { KebabCasePipe } from '../filters/kebab-case.pipe';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 
 
@@ -17,7 +18,8 @@ import { KebabCasePipe } from '../filters/kebab-case.pipe';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    AngularSvgIconModule
   ],
   exports: [
     AButtonComponent,

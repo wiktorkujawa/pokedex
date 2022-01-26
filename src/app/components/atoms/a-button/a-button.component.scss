@@ -3,5 +3,9 @@
 }
 
 .a-button__pagination-active {
-  @apply h-10 px-5 text-white bg-gray-600 border border-r-0 border-gray-600;
+  @apply h-10 px-5 text-white bg-gray-600 border border-r-0 border-gray-600 cursor-not-allowed;
+}
+
+.a-button__pagination-disabled {
+  @apply h-10 px-5 text-gray-600 bg-white border border-r-0 border-gray-600 cursor-not-allowed opacity-50;
 }

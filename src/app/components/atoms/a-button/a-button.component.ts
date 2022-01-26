@@ -9,6 +9,7 @@ export class AButtonComponent implements OnInit {
   @Input('to') to = '';
   @Input('variant') variant = 'nav';
   @Input('isActive') isActive = false;
+  @Input('disabled') isDisabled = false;
   constructor() { }
 
   ngOnInit(): void {

@@ -7,6 +7,9 @@ import { LayoutComponent } from './layout/layout.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PokeindexModule } from './pages/pokeindex/pokeindex.module';
 import { SharedModule } from './shared/shared.module';
+import { FormlyModule } from '@ngx-formly/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     PokeindexModule,
-    SharedModule
+    SharedModule,
+    FormlyModule.forRoot(),
+    ReactiveFormsModule,
+    AngularSvgIconModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

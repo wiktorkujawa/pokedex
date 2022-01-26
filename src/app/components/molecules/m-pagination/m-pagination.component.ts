@@ -11,18 +11,24 @@ export class MPaginationComponent implements OnInit {
   @Input('page') page: number = 1;
   @Input('offset') offset: number = 0;
   @Input('limit') limit: number = 10;
-  // offset: number = 0;
-  // limit: number = 10;
+  @Input('selectLimit')  selectLimit: number[] = [5, 10, 20, 50]
+  
+ 
 
-  nextPage(): void {
-    this.page++;
-    this.offset+=this.limit
+  changeLimit(limit: any) {
+    this.limit = limit.value
     this.pageChanged.emit({offset: this.offset, limit:this.limit});
   }
 
-  prevPage(): void {
-    this.page--;
-    this.offset-=this.limit
+  nextPage(iterator: number): void {
+    this.page+=iterator;
+    this.offset+=this.limit*iterator
+    this.pageChanged.emit({offset: this.offset, limit:this.limit});
+  }
+
+  prevPage(iterator: number): void {
+    this.page-=iterator;
+    this.offset-=this.limit*iterator
     this.pageChanged.emit({offset: this.offset, limit:this.limit});
   }
 

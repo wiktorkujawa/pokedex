@@ -4,7 +4,15 @@
 <a class="p-4" *ngIf="variant == 'link'" href={{to}}>
   <ng-container *ngTemplateOutlet="linkText"></ng-container>
 </a>
-<button [class]="isActive ? 'a-button__pagination-active': 'a-button__pagination'" isActive="isActive" *ngIf="variant == 'pagination'">
+<button 
+  [disabled]="isActive || isDisabled" 
+  [class]="isActive ? 
+    'a-button__pagination-active': 
+    isDisabled ? 
+    'hidden': 
+    'a-button__pagination'" 
+  isActive="isActive" 
+  *ngIf="variant == 'pagination'">
   <ng-container *ngTemplateOutlet="linkText"></ng-container>
 </button>
 
