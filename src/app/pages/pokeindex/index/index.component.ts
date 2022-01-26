@@ -18,7 +18,9 @@ export class IndexComponent implements OnInit {
 
   constructor( private pokedexService: PokedexService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.pokemons$ = this.pokedexService.getPokemons({limit: 5, offset: 0})
+  }
 
   trackByName(index: number, pokemon: any){
     return pokemon.name
