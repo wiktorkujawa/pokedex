@@ -18,18 +18,18 @@ export class WebService {
   constructor(private http:HttpClient) { }
 
   get(uri:string) {
-    return this.http.get<any[]>(`${environment.apiUrl}/${uri}`, httpOptions)
+    return this.http.get<any[]>(`${environment.apiUrl}/api/${uri}`, httpOptions)
   }
 
   post(uri:string, object: any){
-    return this.http.post(`${environment.apiUrl}/${uri}`, object, httpOptions);
+    return this.http.post(`${environment.apiUrl}/api/${uri}`, object, httpOptions);
   }
 
   delete(uri:string, id:any){
-    return this.http.delete(`${environment.apiUrl}/${uri}/${id}`)
+    return this.http.delete(`${environment.apiUrl}/api/${uri}/${id}`)
   }
 
   put(uri:string, id:any,object:object){
-    return this.http.put(`${environment.apiUrl}/${uri}/${id}`, object, httpOptions)
+    return this.http.put(`${environment.apiUrl}/api/${uri}/${id}`, object, httpOptions)
   }
 }

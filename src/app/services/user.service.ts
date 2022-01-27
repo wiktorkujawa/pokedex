@@ -12,15 +12,26 @@ interface Register {
 
 
 export class UserService {
-  apiurl: string = 'api/users';
 
   constructor(private webService: WebService) { }
 
+  login({email, password}:Register){
+    return this.webService.post('login', { email, password});
+  }
+
+  logout(){
+    return this.webService.get('logout');
+  }
+
+  getUser(){
+    return this.webService.get('user');
+  }
+
   register({email, name, password, password2}:Register){
-    return this.webService.post('api/user/register', { email, name, password, password2});
+    return this.webService.post('register', { email, name, password, password2});
   }
 
   addToWishList(userID: number, pokemonName: string){
-    return this.webService.post(`${this.apiurl}/save-to-wishlist`, {id: userID, name: pokemonName});
+    return this.webService.post(`users/save-to-wishlist`, {id: userID, name: pokemonName});
   }
 }

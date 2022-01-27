@@ -13,6 +13,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { RegisterComponent } from './pages/register/register.component';
 import { FormlyFieldInput } from './fields/input/input.component';
 import { FormlyFieldPassword } from './fields/password/password.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormlyFieldPassword } from './fields/password/password.component';
     LayoutComponent,
     RegisterComponent,
     FormlyFieldInput,
-    FormlyFieldPassword
+    FormlyFieldPassword,
+    LoginComponent
   ],
   imports: [
     HttpClientModule,

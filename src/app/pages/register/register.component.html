@@ -1,18 +1,12 @@
   <div class="block mx-auto p-6 rounded-lg shadow-lg bg-white max-w-md">
     <form [formGroup]="form" (ngSubmit)="onSubmit(model)">
       <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-        <!-- <div class="form-group mb-6">
-          <input type="text" class="o-input" id="exampleInput124"
-            aria-describedby="emailHelp124" placeholder="Last name">
-        </div>
-      <div class="form-group mb-6">
-        <input type="email" class="o-input" id="exampleInput125"
-          placeholder="Email address">
-      </div>
-      <div class="form-group mb-6">
-        <input type="password" class="o-input" id="exampleInput126"
-          placeholder="Password">
-      </div> -->
-      <button type="submit" class="auth-button">Sign up</button>
+      <button type="submit" class="o-auth-button">Sign up</button>
+      <small>{{(message$ | async)?.message}}</small>
+
+      <!-- <small *ngFor="let messag of (message$ | async)">{{messag.message}}</small> -->
+
+      <small>{{(message$ | async)?.error[0]?.message}}</small>
+
     </form>
   </div>

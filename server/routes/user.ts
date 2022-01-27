@@ -9,7 +9,7 @@ const { user, pokemon } = new PrismaClient();
 const router = Router();
 
 
-router.post('/user/register', (request: Request, response: Response, _next: NextFunction) => {
+router.post('/register', (request: Request, response: Response, _next: NextFunction) => {
   const { name, email, password, password2} = request.body;
   let errors: any = [];
   if (!name || !email || !password || !password2) {
@@ -49,7 +49,7 @@ router.post('/user/register', (request: Request, response: Response, _next: Next
                 // active: false,
                 // activeToken: activeToken,
                 // activeExpires: Date.now() + 24 * 3600 * 1000
-              });
+              }).then(() => response.status(201).json({message: 'Registration success.'}));
 
               // let gmailService = new GMailService();;
               // gmailService.sendMail(
@@ -62,23 +62,24 @@ router.post('/user/register', (request: Request, response: Response, _next: Next
               // );
 
           // return response.status(201).json({message: 'Registration success. Check your email to activate account.'});
-          return response.status(201).json({message: 'Registration success.'});
+          return;
 
         })
       }
     })
 }});
 
-router.get('/user', (request: Request, _response: Response, _next: NextFunction) => {
-  return Promise.all([request.user])
+router.get('/user', (request: Request, response: Response, _next: NextFunction) => {
+  return Promise.all([request.user]).then(user => response.send(user))
 })
 
-router.get('/user/logout', (request: Request, _response: Response, _next: NextFunction) => {
+router.get('/logout', (request: Request, response: Response, _next: NextFunction) => {
   request.logout();
-  return Promise.all([{message:'Logout success'}]);
+  // return Promise.all([{message:'Logout success'}]);
+  return response.send({message:'Logout success'});
 })
 
-router.post('/user/login', (request: Request, response: Response, next: NextFunction) => {
+router.post('/login', (request: Request, response: Response, next: NextFunction) => {
   passport.authenticate('local', (err, user, info) => {
   
     if (err) { 
@@ -87,9 +88,9 @@ router.post('/user/login', (request: Request, response: Response, next: NextFunc
     if (!user) { 
       return response.status(501).json([info]); 
     }
-    if(!user.active){
-      return response.status(501).json([{message:'Account not activated. Check your email'}]);
-    }
+    // if(!user.active){
+    //   return response.status(501).json([{message:'Account not activated. Check your email'}]);
+    // }
     request.logIn(user, function(err) {
       if (err) { 
         return response.status(501).json(err); 

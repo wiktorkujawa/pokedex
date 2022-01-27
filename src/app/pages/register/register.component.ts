@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { Observable } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -10,12 +11,13 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RegisterComponent implements OnInit {
   form = new FormGroup({});
- model = { 
-   name: '',
-   email: '',
-   password: '',
-   password2: ''
- };
+  message$!: Observable<any>;
+  model = { 
+    name: '',
+    email: '',
+    password: '',
+    password2: ''
+  };
  fields: FormlyFieldConfig[] = [
    {
      key: 'email',
@@ -56,8 +58,7 @@ export class RegisterComponent implements OnInit {
  ];
 
  onSubmit(model:any) {
-   this.userService.register(model).subscribe(i => console.log(i));
-   console.log(model);
+   this.message$ = this.userService.register(model);
  }
 
   constructor( private userService: UserService) { }
