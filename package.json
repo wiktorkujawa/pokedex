@@ -8,7 +8,7 @@
     "client": "ng serve --open",
     "dev": "concurrently \"npm run start\" \"npm run client\"",
     "build:client": "ng build --prod --output-path ./dist",
-    "build:server": "npm run build --prefix server && npx prisma migrate dev --preview-feature --schema ./server/prisma/schema.prisma && npm run prisma:generate && npm run prisma:deploy",
+    "build:server": "npm run build --prefix server && npm run prisma:generate && npm run prisma:deploy",
     "prisma:generate": "npx prisma generate --schema ./server/prisma/schema.prisma",
     "prisma:deploy": "npx prisma migrate deploy --schema ./server/prisma/schema.prisma",
     "prisma:dev": "npx prisma migrate dev  --preview-feature --schema ./server/prisma/schema.prisma",

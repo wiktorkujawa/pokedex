@@ -10,11 +10,17 @@ import { SharedModule } from './shared/shared.module';
 import { FormlyModule } from '@ngx-formly/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { RegisterComponent } from './pages/register/register.component';
+import { FormlyFieldInput } from './fields/input/input.component';
+import { FormlyFieldPassword } from './fields/password/password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent
+    LayoutComponent,
+    RegisterComponent,
+    FormlyFieldInput,
+    FormlyFieldPassword
   ],
   imports: [
     HttpClientModule,
@@ -22,7 +28,17 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     AppRoutingModule,
     PokeindexModule,
     SharedModule,
-    FormlyModule.forRoot(),
+    FormlyModule.forRoot({
+      types: [ {
+        name : 'input',
+        component: FormlyFieldInput
+      },
+      {
+        name: 'password',
+        component: FormlyFieldPassword
+      }
+    ]
+    }),
     ReactiveFormsModule,
     AngularSvgIconModule.forRoot()
   ],
