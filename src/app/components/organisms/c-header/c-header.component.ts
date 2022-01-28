@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { take } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'c-header',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CHeaderComponent implements OnInit {
 
-  constructor() { }
+  @Input('user') user: any;
+  constructor( private userService: UserService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
+  }
+
+  logout() {
+    console.log('logout')
+    this.userService.logout().pipe(take(1)).subscribe()
+    this.user = null
+    this.router.navigate(['/']);
   }
 
 }

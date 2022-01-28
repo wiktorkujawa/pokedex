@@ -7,34 +7,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Pokemon {
-  id        Int       @id @default(autoincrement())
-  name      String @unique
-  owners    CatchedPokemons[]
-  seekers   Wishlist[]
-}
-
-model User {
-  id               Int       @id @default(autoincrement())
-  name             String @unique
-  email            String @unique
-  password         String
-  pokemonsCatched  CatchedPokemons[]
-  pokemonsWishlist Wishlist[]
-}
-
 model CatchedPokemons {
-  pokemon       Pokemon     @relation(fields: [pokemonName], references: [name])
-  pokemonName   String
-  user          User @relation(fields: [userId], references: [id])
-  userId        Int
+  userId      Int
+  pokemonName String
+  Pokemon     Pokemon @relation(fields: [pokemonName], references: [name])
+  User        User    @relation(fields: [userId], references: [id])
+
   @@id([pokemonName, userId])
 }
 
+model Pokemon {
+  name            String            @unique
+  id              Int               @id @default(autoincrement())
+  CatchedPokemons CatchedPokemons[]
+  Wishlist        Wishlist[]
+}
+
+model User {
+  id              Int                @id @default(autoincrement())
+  userName        String?            @unique
+  email           String?            @unique
+  password        String
+  CatchedPokemons CatchedPokemons[]
+  Wishlist        Wishlist[]
+}
+
 model Wishlist {
-  pokemon       Pokemon     @relation(fields: [pokemonName], references: [name])
-  pokemonName   String
-  user          User @relation(fields: [userId], references: [id])
-  userId        Int
+  userId      Int
+  pokemonName String
+  Pokemon     Pokemon @relation(fields: [pokemonName], references: [name])
+  User        User    @relation(fields: [userId], references: [id])
+
   @@id([pokemonName, userId])
 }

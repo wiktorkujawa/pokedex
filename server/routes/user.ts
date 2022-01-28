@@ -9,7 +9,7 @@ const { user, pokemon } = new PrismaClient();
 const router = Router();
 
 
-router.post('/register', (request: Request, response: Response, _next: NextFunction) => {
+router.post('/register', async (request: Request, response: Response, _next: NextFunction) => {
   const { name, email, password, password2} = request.body;
   let errors: any = [];
   if (!name || !email || !password || !password2) {
@@ -26,51 +26,53 @@ router.post('/register', (request: Request, response: Response, _next: NextFunct
 
   if (errors.length > 0) {
     response.status(400).json(errors);
-  } else {
-    user.findUnique({ where: {email: email} }).then( (foundUser: any) => {
-      if (foundUser) {
-        errors.push({ message: 'Email already exists' });
+    return;
+  }
+  crypto.randomBytes(20, async (err, _buf) => {
 
-        return response.status(409).json(errors);
-      } else {
-        
-            crypto.randomBytes(20,  (err, _buf) => {
-        
-              if(err){
-                console.log(err);
-              }
-              // const activeToken = Date.now()+buf.toString('hex');
-              user.create({
-                data:{
-                  email: email,
-                  name: name,
-                  password: bcrypt.hashSync(password,10)
-                }
-                // active: false,
-                // activeToken: activeToken,
-                // activeExpires: Date.now() + 24 * 3600 * 1000
-              }).then(() => response.status(201).json({message: 'Registration success.'}));
-
-              // let gmailService = new GMailService();;
-              // gmailService.sendMail(
-              //   email,
-              //   `Account Activation - ${process.env.PAGE_NAME}`,
-              //   `<p>Hello ${name},</p>
-              //   <p>Click the activation link, if you registered on ${process.env.PAGE_NAME} </p>
-              //   <a href='${process.env.PAGE_NAME}/account/active/${activeToken}'>${process.env.PAGE_NAME}/account/active/${activeToken}</a>
-              //   <p>Otherwise ignore it, link will expire after 24 hours.</p>`
-              // );
-
-          // return response.status(201).json({message: 'Registration success. Check your email to activate account.'});
-          return;
-
-        })
+    if(err){
+      console.log(err);
+    }
+    // const activeToken = Date.now()+buf.toString('hex');
+    try {
+       await user.create({
+        data:{
+          userName: name as string,
+          email: email as string,
+          password: bcrypt.hashSync(password,10)
+          // ,active: false,
+          // activeToken: activeToken,
+          // activeExpires: Date.now() + 24 * 3600 * 1000
+        }});
+        return response.send({ message:'Registration Success'})
       }
+
+      catch(e) {
+        response.status(409).send({ message:'Email already exists' })
+        return;
+      }
+
+      
+        
+
+
+        // let gmailService = new GMailService();;
+        // gmailService.sendMail(
+        //   email,
+        //   `Account Activation - ${process.env.PAGE_NAME}`,
+        //   `<p>Hello ${name},</p>
+        //   <p>Click the activation link, if you registered on ${process.env.PAGE_NAME} </p>
+        //   <a href='${process.env.PAGE_NAME}/account/active/${activeToken}'>${process.env.PAGE_NAME}/account/active/${activeToken}</a>
+        //   <p>Otherwise ignore it, link will expire after 24 hours.</p>`
+        // );
+
+        // return response.status(201).json({message: 'Registration success. Check your email to activate account.'});
+
     })
-}});
+  });
 
 router.get('/user', (request: Request, response: Response, _next: NextFunction) => {
-  return Promise.all([request.user]).then(user => response.send(user))
+  return Promise.all([request.user]).then(user => response.send(user[0]))
 })
 
 router.get('/logout', (request: Request, response: Response, _next: NextFunction) => {
@@ -106,9 +108,12 @@ router.post('/login', (request: Request, response: Response, next: NextFunction)
 router.get('/users', async (_req: Request, res: Response) => {
   try {
     const users = await user.findMany({
-      include: {
-        pokemonsCatched: true,
-        pokemonsWishlist: true
+      select: {
+        id: true,
+        userName: true,
+        email: true,
+        CatchedPokemons: true,
+        Wishlist: true,
       }
     })
     res.send(users)
@@ -132,7 +137,7 @@ router.post('/users/save-to-wishlist', async (_req: Request, res: Response) => {
     if(pokemonExist) {
       const owner = await user.update({
         data: {
-          pokemonsWishlist: {
+          Wishlist: {
             connectOrCreate: {
               create: {
                 pokemonName: body.name
@@ -150,8 +155,8 @@ router.post('/users/save-to-wishlist', async (_req: Request, res: Response) => {
           id: body.id
         },
         include: {
-          pokemonsWishlist: true,
-          pokemonsCatched: true
+          Wishlist: true,
+          CatchedPokemons: true
         }
       })
       res.send(owner)
@@ -159,9 +164,9 @@ router.post('/users/save-to-wishlist', async (_req: Request, res: Response) => {
     else {
       const owner = await user.update({
         data: {
-          pokemonsWishlist: {
+          Wishlist: {
             create: {
-              pokemon: {
+              Pokemon: {
                 create: {
                   name: body.name
                 }
@@ -173,8 +178,8 @@ router.post('/users/save-to-wishlist', async (_req: Request, res: Response) => {
           id: body.id
         },
         include: {
-          pokemonsWishlist: true,
-          pokemonsCatched: true
+          Wishlist: true,
+          CatchedPokemons: true
         }
       })
       res.send(owner)
@@ -199,7 +204,7 @@ router.post('/users/catch-pokemon', async (_req: Request, res: Response) => {
     if(pokemonExist) {
       const owner = await user.update({
         data: {
-          pokemonsCatched: {
+          CatchedPokemons: {
             connectOrCreate: {
               create: {
                 pokemonName: body.name
@@ -217,8 +222,8 @@ router.post('/users/catch-pokemon', async (_req: Request, res: Response) => {
           id: body.id
         },
         include: {
-          pokemonsWishlist: true,
-          pokemonsCatched: true
+          Wishlist: true,
+          CatchedPokemons: true
         }
       })
       res.send(owner)
@@ -226,9 +231,9 @@ router.post('/users/catch-pokemon', async (_req: Request, res: Response) => {
     else {
       const owner = await user.update({
         data: {
-          pokemonsCatched: {
+          CatchedPokemons: {
             create: {
-              pokemon: {
+              Pokemon: {
                 create: {
                   name: body.name
                 }
@@ -240,8 +245,8 @@ router.post('/users/catch-pokemon', async (_req: Request, res: Response) => {
           id: body.id
         },
         include: {
-          pokemonsWishlist: true,
-          pokemonsCatched: true
+          Wishlist: true,
+          CatchedPokemons: true
         }
       })
       res.send(owner)

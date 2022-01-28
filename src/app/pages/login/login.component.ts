@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
@@ -41,9 +42,11 @@ export class LoginComponent implements OnInit {
  ];
 
   onSubmit(model:any) {
-    this.message$ = this.userService.login(model);
+    this.message$ = this.userService.login(model)
   }
-  constructor( private userService: UserService) { }
+  constructor( private userService: UserService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
   }

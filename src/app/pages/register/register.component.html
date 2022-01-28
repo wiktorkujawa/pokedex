@@ -3,10 +3,5 @@
       <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
       <button type="submit" class="o-auth-button">Sign up</button>
       <small>{{(message$ | async)?.message}}</small>
-
-      <!-- <small *ngFor="let messag of (message$ | async)">{{messag.message}}</small> -->
-
-      <small>{{(message$ | async)?.error[0]?.message}}</small>
-
     </form>
   </div>

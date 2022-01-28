@@ -8,7 +8,7 @@ router.get('/pokemons', async (_req: Request, res: Response) => {
   try {
     const pokemons = await pokemon.findMany({
       include: {
-        owners: true
+        CatchedPokemons: true
       }
     })
     res.send(pokemons)
