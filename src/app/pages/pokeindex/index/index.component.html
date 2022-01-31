@@ -17,27 +17,29 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let pokemon of (pokemons$ | async); trackBy: trackByName">
-        <td class="border-2 text-center capitalize">{{(pokemon | async)?.name}}</td>
-        <td class="border-2"> 
+      <ng-container *ngFor="let pokemon of (pokemons$ | async); trackBy: trackByName"> 
+      <tr *ngIf="pokemon | async as pokemonDetail" >
+        <td (click)="pokemonInfo(pokemonDetail!.name)" class="border-2 text-center cursor-pointer hover:opacity-75 capitalize">{{pokemonDetail?.name}}</td>
+        <td (click)="pokemonInfo(pokemonDetail!.name)" class="border-2 cursor-pointer hover:opacity-75"> 
           <div>
-            <img class="mx-auto block" [src]="(pokemon | async)?.sprites?.front_default"/>
+            <img class="mx-auto block" [src]="pokemonDetail?.sprites?.front_default"/>
           </div>
         </td>
 
         <td class="border-2 px-4">
           <ul class="mx-auto grid md:grid-cols-2 grid-cols-1">
-            <li class="flex" *ngFor="let stats of (pokemon | async)?.stats">
+            <li class="flex" *ngFor="let stats of pokemonDetail?.stats">
               <h2 class="capitalize font-bold">{{stats?.stat?.name | kebabCase}}</h2>: <p>{{stats?.base_stat}}</p>
             </li>
           </ul>
         </td>
 
         <td class="border-2 text-center capitalize">
-          <button>Add to wishlist</button> <br>
-          <button>Catch Pokemon</button>
+          <button class="cursor-pointer hover:opacity-75" *ngIf="(user$ | async) as user" (click)="addToWishlist(user?.id, pokemonDetail!.name)">Add to wishlist</button> <br>
+          <button class="cursor-pointer hover:opacity-75" *ngIf="(user$ | async) as user" (click)="catchPokemon(user?.id, pokemonDetail!.name)">Catch Pokemon</button> <br>
         </td>
       </tr>
+    </ng-container> 
     </tbody>
   </table>
 

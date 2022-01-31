@@ -1,0 +1,82 @@
+<section>
+  <div class="o-container o-container--xl flex md:flex-row flex-col">
+      <div class="o-aspect-ratio md:w-1/2 w-full border-2">
+        <img 
+          class="o-aspect-ratio__content w-full object-cover" 
+          [src]="pokemon?.sprites?.front_default" alt=""/>
+        <div class="absolute -right-4 top-4 flex gap-x-2">
+          <svg-icon 
+            *ngFor="let type of pokemon?.types"
+            [applyClass]="true"
+            [ngClass]="{
+              'translate-x-4 translate-y-4': true,
+              'bg-bug' : type?.type?.name==='bug',
+              'bg-dark' : type?.type?.name==='dark',
+              'bg-dragon' : type?.type?.name==='dragon',
+              'bg-electric' : type?.type?.name==='electric',
+              'bg-fairy' : type?.type?.name==='fairy',
+              'bg-fighting' : type?.type?.name==='fighting',
+              'bg-fire' : type?.type?.name==='fire',
+              'bg-flying' : type?.type?.name==='flying',
+              'bg-grass' : type?.type?.name==='grass',
+              'bg-ground': type?.type?.name==='ground',
+              'bg-ice': type?.type?.name==='ice',
+              'bg-normal': type?.type?.name==='normal',
+              'bg-poison' : type?.type?.name==='poison',
+              'bg-psychic' : type?.type?.name==='psychic',
+              'bg-rock' : type?.type?.name==='rock',
+              'bg-steel' : type?.type?.name==='steel',
+              'bg-water' : type?.type?.name==='water'
+            }"
+            class=" w-16 h-16 shadow-lg hover:opacity-75 cursor-pointer rounded-full p-4 -translate-y-4 -translate-x-4" 
+            [src]="'/assets/svg/pokemons/' + type?.type?.name + '.svg'">
+          </svg-icon>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 p-4 border-2 gap-x-2 w-full">
+      <div>
+      <ul class="border-2 p-4 rounded-md" *ngIf="pokemon?.stats as stats">
+        <h1 class="font-bold text-h5">Stats:</h1>
+        <li class="flex" *ngFor="let stats of pokemon?.stats">
+          <h2 class="capitalize font-bold">{{stats?.stat?.name | kebabCase}}</h2>: <p>{{stats?.base_stat}}</p>
+        </li>
+      </ul>
+
+      <div class="border-2 p-4 rounded-md">
+        <h1 class="font-bold text-h5">Bio:</h1>
+        <ul>
+          <li class="flex">
+            <h2 class="capitalize font-bold">Height</h2>: <p>{{pokemon?.height}}</p>
+          </li>
+          <li class="flex">
+            <h2 class="capitalize font-bold">Weight</h2>: <p>{{pokemon?.weight}}</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="border-2 p-4 rounded-md">
+        <h1 class="font-bold text-h5">Abilities:</h1>
+        <ul>
+          <li class="flex" *ngFor="let abilities of pokemon?.abilities">
+          <!-- <a> <h2 class="capitalize font-bold">{{abilities?.ability?.name}}</h2> </a> -->
+          <h2 class="capitalize font-bold">{{abilities?.ability?.name}}</h2>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-2 p-4 rounded-md">
+      <h1 class="font-bold text-h5">Moves:</h1>
+      <ul class="overflow-y-scroll max-h-96">
+        <li class="flex" *ngFor="let moves of pokemon?.moves">
+         <!-- <a> <h2 class="capitalize font-bold">{{abilities?.ability?.name}}</h2> </a> -->
+         <h2 class="capitalize font-bold">{{moves?.move?.name}}</h2>
+        </li>
+      </ul>
+    </div>
+    </div>
+
+
+
+  </div>
+</section>

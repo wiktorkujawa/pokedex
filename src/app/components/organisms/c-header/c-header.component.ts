@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { take } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -10,19 +10,22 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class CHeaderComponent implements OnInit {
 
-  @Input('user') user: any;
+  // @Input('user') user: any;
+  user$!: Observable<any>;
+
   constructor( private userService: UserService,
     private router: Router
     ) { }
 
   ngOnInit(): void {
+    this.user$ = this.userService.getUser();
   }
 
   logout() {
-    console.log('logout')
-    this.userService.logout().pipe(take(1)).subscribe()
-    this.user = null
-    this.router.navigate(['/']);
+    this.userService.logout().pipe(take(1)).subscribe(() => {
+      this.user$ = this.userService.getUser();
+      this.router.navigate([''])}
+      )
   }
 
 }

@@ -1,4 +1,11 @@
-<c-header [user]="user$ | async"></c-header>
+<c-header></c-header>
+
+<c-nav-menu [isOpened]="isOpened"></c-nav-menu>
+
+<button (click)="openMenu()" class="md:hidden absolute top-4 right-4 w-8"> 
+  <svg-icon *ngIf="!isOpened" src="/assets/svg/menu.svg"></svg-icon>
+  <div class="text-h3" *ngIf="isOpened">&times;</div>
+</button>
 <main class="min-h-screen">
   <div class='h-24'></div>
 <router-outlet></router-outlet>

@@ -1,16 +1,16 @@
 <header class='c-header fixed left-0 right-0 top-0 z-50 bg-coral-red'>
-  <div class='c-header__menu flex justify-between text-h4 mx-4 my-2'>
+  <div class='c-header__menu md:flex hidden justify-between text-h4 mx-4 my-2'>
     <div>
-      <a-button variant='nav' to=""> PokeIndex </a-button>
-      <a-button *ngIf="user" variant='nav' to="wishlist"> Wishlist </a-button>
-      <a-button *ngIf="user" variant='nav' to="catched"> Catched </a-button>
+      <a-button variant='nav' to="pokeindex"> PokeIndex </a-button>
+      <a-button variant='nav' to="wishlist"> Wishlist </a-button>
+      <a-button variant='nav' to="catched-pokemons"> Catched </a-button>
       <a-button variant='nav' to="ranking"> Ranking </a-button>
     </div>
 
-    <a *ngIf="!user" routerLink="login" class="w-10" >
+    <a *ngIf="!(user$ |async)" routerLink="login" class="w-10" >
       <svg-icon src="/assets/svg/login.svg"></svg-icon>
     </a>
-    <button (click)="logout()" *ngIf="user" class="w-10" >
+    <button (click)="logout()" *ngIf="user$ | async" class="w-10" >
       <svg-icon src="/assets/svg/logout.svg"></svg-icon>
     </button>
   </div>

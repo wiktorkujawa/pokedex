@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { MPaginationComponent } from '../components/molecules/m-pagination/m-pagination.component';
 import { KebabCasePipe } from '../filters/kebab-case.pipe';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { CPokemonCardComponent } from '../components/organisms/c-pokemon-card/c-pokemon-card.component';
+import { CNavMenuComponent } from '../components/organisms/c-nav-menu/c-nav-menu.component';
 
 
 
@@ -14,6 +16,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     AButtonComponent,
     CHeaderComponent,
     MPaginationComponent,
+    CPokemonCardComponent,
+    CNavMenuComponent,
     KebabCasePipe
   ],
   imports: [
@@ -24,6 +28,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
   exports: [
     AButtonComponent,
     CHeaderComponent,
+    CPokemonCardComponent,
+    CNavMenuComponent,
     MPaginationComponent,
     KebabCasePipe
   ]

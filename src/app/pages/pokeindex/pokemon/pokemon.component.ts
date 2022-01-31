@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { map, Observable, take } from 'rxjs';
+import { PokedexService } from 'src/app/services/pokedex.service';
 
 @Component({
   selector: 'app-pokemon',
@@ -9,10 +10,14 @@ import { Observable } from 'rxjs';
 })
 export class PokemonComponent implements OnInit {
   pokemon$!: Observable<any>;
-  constructor(public router:ActivatedRoute) { }
+
+  pokemonName!: string;
+  constructor(public router:ActivatedRoute,
+    private pokedexService: PokedexService) { }
 
   ngOnInit(): void {
-    this.pokemon$ = this.router.params;
+    this.router.params.pipe(take(1)).subscribe( i => this.pokemonName = i['pokemon'])
+    this.pokemon$ = this.pokedexService.getPokemon(this.pokemonName)
   }
 
 }

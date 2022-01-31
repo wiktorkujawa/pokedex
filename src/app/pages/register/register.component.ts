@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -61,9 +62,15 @@ export class RegisterComponent implements OnInit {
    this.message$ = this.userService.register(model);
  }
 
-  constructor( private userService: UserService) { }
+  constructor( private userService: UserService,
+    private router : Router) { }
 
   ngOnInit(): void {
+    this.userService.getUser().pipe(take(1)).subscribe( user => {
+      if(user){
+        this.router.navigate(['/'])
+      }
+    })
   }
 
 }

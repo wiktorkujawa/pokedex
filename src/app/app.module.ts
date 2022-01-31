@@ -14,6 +14,9 @@ import { RegisterComponent } from './pages/register/register.component';
 import { FormlyFieldInput } from './fields/input/input.component';
 import { FormlyFieldPassword } from './fields/password/password.component';
 import { LoginComponent } from './pages/login/login.component';
+import { CatchedPokemonsComponent } from './pages/catched-pokemons/catched-pokemons.component';
+import { WishListComponent } from './pages/wish-list/wish-list.component';
+import { RankingComponent } from './pages/ranking/ranking.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { LoginComponent } from './pages/login/login.component';
     RegisterComponent,
     FormlyFieldInput,
     FormlyFieldPassword,
-    LoginComponent
+    LoginComponent,
+    CatchedPokemonsComponent,
+    WishListComponent,
+    RankingComponent
   ],
   imports: [
     HttpClientModule,

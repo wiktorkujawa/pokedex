@@ -9,13 +9,14 @@ import { UserService } from '../services/user.service';
 })
 export class LayoutComponent implements OnInit {
 
-  user$!: Observable<any>
+  constructor() { }
 
-  constructor( private userService: UserService) { }
+  isOpened: boolean = false
 
-  ngOnInit(): void {
-    // this.userService.getUser().subscribe(i=> console.log(i))
-    this.user$ = this.userService.getUser()
+  ngOnInit(): void {}
+
+  openMenu() {
+    this.isOpened = !this.isOpened
   }
 
 }

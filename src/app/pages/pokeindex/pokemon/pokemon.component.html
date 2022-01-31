@@ -1,1 +1,3 @@
-<p>{{(pokemon$ | async)?.pokemon}}</p>
+<ng-container *ngIf="(pokemon$ | async) as pokemon">
+  <c-pokemon-card [pokemon]="pokemon"></c-pokemon-card>
+</ng-container>
