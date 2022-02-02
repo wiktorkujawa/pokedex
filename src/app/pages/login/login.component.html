@@ -1,4 +1,5 @@
-<div class="block mx-auto p-6 rounded-lg shadow-lg bg-white max-w-md">
+<div class="p-login__container flex w-full items-center justify-center">
+<div class="block mx-auto p-6 rounded-lg shadow-lg bg-white w-1/2 min-w-max">
   <form [formGroup]="form" (ngSubmit)="onSubmit(model)">
     <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
     <button type="submit" class="o-auth-button">Sign in</button>
@@ -7,4 +8,5 @@
     </p>
     <small>{{(message$ | async)?.message}}</small>
   </form>
+</div>
 </div>

@@ -6,20 +6,24 @@ import { LoginComponent } from './pages/login/login.component';
 import { RankingComponent } from './pages/ranking/ranking.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { WishListComponent } from './pages/wish-list/wish-list.component';
-import { AuthGuardService } from './services/auth-guard.service';
+import { AuthGuard } from './guards/auth.guard';
+import { UserResolver } from './resolvers/user.resolver';
 
 const routes: Routes = [
   { 
     path: '', 
-    component: LayoutComponent,
+    runGuardsAndResolvers: "always",
+    component: LayoutComponent, resolve: {
+      user: UserResolver
+  },
     children: [
       { path: 'full', redirectTo: '/'},
       { path: 'register', component: RegisterComponent },
       { path: 'login', component: LoginComponent },
       { path: 'pokeindex', loadChildren: () => import('./pages/pokeindex/pokeindex.module').then(m => m.PokeindexModule)},
       { path: 'ranking', component: RankingComponent },
-      { path: 'catched-pokemons', component: CatchedPokemonsComponent, canActivate: [AuthGuardService] },
-      { path: 'wishlist', component: WishListComponent, canActivate: [AuthGuardService] }
+      { path: 'catched-pokemons', component: CatchedPokemonsComponent, canActivate: [AuthGuard] },
+      { path: 'wishlist', component: WishListComponent, canActivate: [AuthGuard] }
       
     ]
   }

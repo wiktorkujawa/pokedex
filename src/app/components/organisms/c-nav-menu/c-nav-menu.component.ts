@@ -8,9 +8,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CNavMenuComponent implements OnInit {
 
   @Input('isOpened') isOpened: boolean = false
+  @Input('user') user: any;
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }

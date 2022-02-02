@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
 
@@ -9,11 +10,15 @@ import { UserService } from '../services/user.service';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  user: any;
+  constructor( public route: ActivatedRoute) { }
 
   isOpened: boolean = false
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.user = this.route.snapshot.data['user'];
+    // console.log(this.user)
+  }
 
   openMenu() {
     this.isOpened = !this.isOpened
