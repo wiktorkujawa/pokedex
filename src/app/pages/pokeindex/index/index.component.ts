@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, take } from 'rxjs';
 import { Limit, Pokemon } from 'src/app/interfaces';
@@ -9,7 +9,8 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss']
+  styleUrls: ['./index.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IndexComponent implements OnInit {
   pokemons$!: Observable<Observable<Pokemon>[]>;

@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DoCheck, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'm-pagination',
   templateUrl: './m-pagination.component.html',
-  styleUrls: ['./m-pagination.component.scss']
+  styleUrls: ['./m-pagination.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MPaginationComponent implements OnInit {
   @Output() pageChanged = new EventEmitter();
